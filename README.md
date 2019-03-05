@@ -13,6 +13,11 @@ directories to load:
 -static
 -templates
 
+**gotchas: 
+- watch out for permissions, after you copy the files from this repo inside the GeoNode app, you may need to adjust the permissions for GeoNode to be able to read them. I mistakanely did this and got a 'TemplateDoesNotExist' error
+- The static files may not copy over the existing files with the 'collectstatic' command. In this case you make need to manually clear out the /www/var/static folder first. 
+
+
 **extra note: When loading the templates I did 2 modifications to the settings file, which may have resulted in the proper templates and static files being loaded. They were adding this:
 
 ```
