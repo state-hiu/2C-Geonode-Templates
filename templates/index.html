@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load i18n %}
+{% comment %}
+This is where you can override the hero area block. You can simply modify the content below or replace it wholesale to meet your own needs. 
+{% endcomment %}
+  {% block hero %}
+  <div class="jumbotron">
+  	<div class="container">
+        <span class="navbar-brand">GeoNode</span>
+        <h1>{{custom_theme.jumbotron_welcome_title|default:_("State GeoNode")}}</h1>
+  		<p></p>
+		<p>{{custom_theme.jumbotron_welcome_content|default:_("The State GeoNode is a digital service provided by the U.S. Department of State for publishing open geographic data produced by or compiled by the U.S. Government.")}}</p>
+		{% if not custom_theme.jumbotron_cta_hide %}
+  		<a class="btn btn-default btn-lg" target="_blank" href="{{custom_theme.jumbotron_cta_link|default:_("/about")}}" role="button">{{custom_theme.jumbotron_cta_text|default:_("About &raquo;")}}</a>
+		{% endif %}
+	</div>
+  </div>
+  {% endblock %}
+
+{% block bigsearch %}
+      <div class="big-search">
+        <div class="container">
+                <h1>{% trans "Search for Data." %}</h1>
+                <div class="search">
+                        <form id="search" action="{% url "search" %}" >
+                                <span class="fa fa-search fa-2x"></span>
+                                {% if HAYSTACK_SEARCH %}
+                                <input id="search_input" type="text" placeholder="Search" class="form-control" name="q">
+                                {% else %}
+                                <input id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
+                                {% endif %}
+                        </form>
+                </div>
+                <p><a class="btn btn-default btn-lg" href="{% url "search" %}">Advanced Search</a></p>
+        </div>
+      </div>
+{% endblock bigsearch %}
+
+{% block datasets %}
+{% endblock datasets %}
