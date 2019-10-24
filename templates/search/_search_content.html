@@ -43,18 +43,29 @@
             {% if SEARCH_FILTERS.EXTENT_ENABLED %}
               {% include "search/_extent_filter.html" %}
             {% endif %}
-	    {% include "search/_cities_filter.html" %}
-            {% include "search/_data_type_filter.html" %}
+            {% if SEARCH_FILTERS.CITIES_ENABLED %}
+              {% include "search/_cities_filter.html" %}
+            {% endif %}
+            {% if SEARCH_FILTERS.DATAPROVIDER_TYPE_ENABLED %}
+              {% include "search/_dataprovider_filter.html" %}
+            {% endif %}
         </div>
       </div>
     </div>
   </div>
   <div class="col-md-9">
     <div class="row">
-      	{% block result-count %}
-	<div class="col-md-10"><result-count svgurl="{{STATIC_URL}}" counts="total_counts" query="text_query"></result-count>
-        {% endblock %}
-	</div>
+      <div class="col-md-10">
+          {% if facet_type == 'layers' %}
+          <span style="font-size: 34px;" ng-bind="total_counts + ' ' + '{% trans "Layers found" %}'"></span>
+          {% elif facet_type == 'maps' %}
+          <span style="font-size: 34px;" ng-bind="total_counts + ' ' + '{% trans "Maps found" %}'"></span>
+          {% elif facet_type == 'documents' %}
+          <span style="font-size: 34px;" ng-bind="total_counts + ' ' + '{% trans "Documents found" %}'"></span>
+          {% else %}
+          <span style="font-size: 34px;" ng-bind="total_counts + ' {{ facet_type | title }} found'"></span>
+          {% endif %}
+      </div>
       <div class="col-md-2">{% include "search/_sort_filters.html" %}</div>
     </div>
     <div class="row">
